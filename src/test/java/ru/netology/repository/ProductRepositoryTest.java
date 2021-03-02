@@ -14,9 +14,9 @@ class ProductRepositoryTest {
     ProductManager manager = new ProductManager(repository);
     Book book1 = new Book(1, "Игла", 10, "Артемьева");
     Book book2 = new Book(2, "Гроза", 20, "Островский");
-    Book book3 = new Book(3, "Мать", 30, "Горький");
+    Book book3 = new Book(3, "Париж", 30, "Артемьева");
     Smartphone smartphone1 = new Smartphone(1, "версия 11", 80_000, "Apple");
-    Smartphone smartphone2 = new Smartphone(1, "версия 10", 20_000, "Xiaomi");// вместо "Xiaomi"
+    Smartphone smartphone2 = new Smartphone(1, "версия 10", 20_000, "Xiaomi");
     Smartphone smartphone3 = new Smartphone(1, "версия 7", 30_000, "Samsung");
 
 
@@ -58,9 +58,9 @@ class ProductRepositoryTest {
         repository.save(book3);
 
 
-        Product[] actual = manager.searchBy("Артемьева");
+        Product[] actual = manager.searchBy("Островский");
 
-        Product[] expected = new Product[]{book1};
+        Product[] expected = new Product[]{book2};
 
         assertArrayEquals(expected, actual);
     }
@@ -91,5 +91,19 @@ class ProductRepositoryTest {
         Product[] expected = new Product[]{};
 
         assertArrayEquals(expected, actual);
+
     }
+    @Test    public void shouldSaveTowBook() {
+        repository.save(book1);
+        repository.save(book2);
+        repository.save(book3);
+
+
+        Product[] actual = manager.searchBy("Артемьева");
+
+        Product[] expected = new Product[]{book1, book3};
+
+        assertArrayEquals(expected, actual);
+    }
+
 }
